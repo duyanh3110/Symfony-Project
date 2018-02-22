@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Phase 1</h3>
+    <div class="form1ab">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    <div id="result">
+        This is your result:<br>
+        Address: {{ address }}<br>
+        Latitude: {{ latitude }}<br>
+        Longitude: {{ longitude }}<br>
+    </div>
+    <div id="map"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function initMap()
+        {
+            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var icons = {
+                parking: {
+                    icon: iconBase + 'parking_lot_maps.png'
+                },
+                library: {
+                    icon: iconBase + 'library_maps.png'
+                },
+                info: {
+                    icon: iconBase + 'info-i_maps.png'
+                }
+            };
+            var place = {
+                lat: {{ latitude }},
+                lng: {{ longitude }}
+            };
+
+            var map = new google.maps.Map( document.getElementById('map'), {
+                center: place,
+                zoom: 14
+            });
+
+            switch ({{ custom }})
+            {
+                case 1:
+                    var marker = new google.maps.Marker({
+                        position: place,
+                        map: map
+                    });
+                    break;
+
+                case 2:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: icons.parking.icon,
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 3:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: icons.info.icon,
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 4:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: icons.library.icon,
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 5:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 6:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 7:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 8:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+
+                case 9:
+                    var marker = new google.maps.Marker({
+                        position: {lat: {{ latitude }},lng: {{ longitude}}},
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                        map: new google.maps.Map( document.getElementById('map'), {
+                            center: {lat: {{ latitude }},lng: {{ longitude}}},
+                            zoom: 14
+                        })
+                    });
+                    break;
+            }
+        }
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsMNH_2hIWFgBIBLu3GmiDyxhMTVpgEdU&callback=initMap">
+    </script>
+{% endblock %}
